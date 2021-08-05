@@ -21,35 +21,37 @@ function startGame(secret) {
                 return;
             }
         }
-        let number = prompt("Угадай число от 1 до 100");
-        if (number === null) {
-            alert("Игра окончена");
-        }
-        else if (!isNumber(number)) {
-            alert("Введи число!")
-            guessNumber();
-        }
         else {
-            number = +number;
-            if (number === secret) {
-                if (confirm("Поздравляю, Вы угадали!!! Хотите сыграть еще?")) {
-                    counter = 10;
-                    secret = getRandomInt(1, 101);
-                    alert("Для вашего удобства, случайное число: " + secret);
-                    guessNumber();
-                }
-                else {
-                    alert("Игра окончена");
-                }
-                return;
+            let number = prompt("Угадай число от 1 до 100");
+            if (number === null) {
+                alert("Игра окончена");
             }
-            else if (number < secret) {
-                alert("Загаданное число больше, осталось попыток: " + --counter);
+            else if (!isNumber(number)) {
+                alert("Введи число!")
                 guessNumber();
             }
             else {
-                alert("Загаданное число меньше, осталось попыток: " + --counter);
-                guessNumber();
+                number = +number;
+                if (number === secret) {
+                    if (confirm("Поздравляю, Вы угадали!!! Хотите сыграть еще?")) {
+                        counter = 10;
+                        secret = getRandomInt(1, 101);
+                        alert("Для вашего удобства, случайное число: " + secret);
+                        guessNumber();
+                    }
+                    else {
+                        alert("Игра окончена");
+                    }
+                    return;
+                }
+                else if (number < secret) {
+                    alert("Загаданное число больше, осталось попыток: " + --counter);
+                    guessNumber();
+                }
+                else {
+                    alert("Загаданное число меньше, осталось попыток: " + --counter);
+                    guessNumber();
+                }
             }
         }
     }
