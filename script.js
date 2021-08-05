@@ -31,6 +31,6 @@ function startGame(secret) {
     return guessNumber;
 }
 
-let guessNumber = startGame(71);
+let guessNumber = startGame(72);
 
 guessNumber();
