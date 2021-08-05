@@ -2,6 +2,12 @@ const isNumber = function (n) {
     return !isNaN(+n) && isFinite(n);
 };
 
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min; //Максимум не включается, минимум включается
+}
+
 function startGame(secret) {
     let counter = 10;
     function guessNumber() {
@@ -28,6 +34,8 @@ function startGame(secret) {
             if (number === secret) {
                 if (confirm("Поздравляю, Вы угадали!!! Хотите сыграть еще?")) {
                     counter = 10;
+                    secret = getRandomInt(1, 101);
+                    alert("Для вашего удобства, случайное число: " + secret);
                     guessNumber();
                 }
                 else {
