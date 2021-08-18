@@ -1,63 +1,25 @@
-const isNumber = function (n) {
-    return !isNaN(+n) && isFinite(n);
-};
-
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min)) + min; //Максимум не включается, минимум включается
-}
-
-function startGame(secret) {
-    let counter = 10;
-    function guessNumber() {
-        if (counter === 0) {
-            if (confirm("Попытки закончились:( Хотите сыграть еще?")) {
-                counter = 10;
-                guessNumber();
-            }
-            else {
-                alert("Игра окончена");
-                return;
-            }
-        }
-        else {
-            let number = prompt("Угадай число от 1 до 100");
-            if (number === null) {
-                alert("Игра окончена");
-            }
-            else if (!isNumber(number)) {
-                alert("Введи число!")
-                guessNumber();
-            }
-            else {
-                number = +number;
-                if (number === secret) {
-                    if (confirm("Поздравляю, Вы угадали!!! Хотите сыграть еще?")) {
-                        counter = 10;
-                        secret = getRandomInt(1, 101);
-                        alert("Для вашего удобства, случайное число: " + secret);
-                        guessNumber();
-                    }
-                    else {
-                        alert("Игра окончена");
-                    }
-                    return;
-                }
-                else if (number < secret) {
-                    alert("Загаданное число больше, осталось попыток: " + --counter);
-                    guessNumber();
-                }
-                else {
-                    alert("Загаданное число меньше, осталось попыток: " + --counter);
-                    guessNumber();
-                }
-            }
-        }
+document.addEventListener('DOMContentLoaded', () => {
+    "use strict";
+    const day = new Date();
+    const hours = day.getHours();
+    if (hours >= 0 && hours <= 5) {
+        document.querySelector(".dayTime").textContent = "Доброй ночи!"
     }
-    return guessNumber;
-}
+    else if (hours >= 6 && hours <= 11) {
+        document.querySelector(".dayTime").textContent = "Доброе утро!"
+    }
+    else if (hours >= 12 && hours <= 18) {
+        document.querySelector(".dayTime").textContent = "Добрый день!"
+    }
+    else {
+        document.querySelector(".dayTime").textContent = "Добрый вечер!"
+    }
 
-let guessNumber = startGame(72);
+    document.querySelector(".dayWeek").textContent = "Сегодня: " + day.toLocaleString("ru", { weekday: "long" });
+    document.querySelector(".curTime").textContent = "Текущее время: " + day.toLocaleTimeString('en', { hour: "2-digit", minute: "2-digit", second: "2-digit" });
 
-guessNumber();
+    const happyNewYear = new Date();
+    happyNewYear.setFullYear(day.getFullYear() + 1, 0, 1);
+    document.querySelector(".newYear").textContent = "До нового года осталось " + (Math.floor(Math.floor(Math.floor(Math.floor((happyNewYear.getTime() - day.getTime()) / 1000) / 60) / 60) / 24)) + " дней";
+
+});
