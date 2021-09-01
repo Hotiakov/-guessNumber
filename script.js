@@ -1,39 +1,47 @@
 document.addEventListener('DOMContentLoaded', () => {
     'use strict';
 
-    const select = document.getElementById('cars'),
-        output = document.getElementById('output');
+    const selectTo = document.getElementById('toRUB__select'),
+        selectFrom = document.getElementById('fromRUB__select'),
+        outputTo = document.getElementById('toRub2'),
+        outputFrom = document.getElementById('fromRub2'),
+        inputTo = document.getElementById('toRub1'),
+        inputFrom = document.getElementById('fromRub1'),
+        btnTo = document.getElementById('convert_to_RUB'),
+        btnFrom = document.getElementById('convert_from_RUB');
 
-    const getData = () => new Promise((resolve, reject) => {
-        const request = new XMLHttpRequest();
-        request.open('GET', './cars.json');
-        request.setRequestHeader('Content-type', 'application/json');
-        request.send();
-        request.addEventListener('readystatechange', () => {
-            if (request.readyState === 4 && request.status === 200) {
-                resolve(request.responseText);
-            } else if (request.status !== 200) {
-                reject('Произошла ошибка');
-            } else {
-                return;
-            }
-        });
+    const getData = () => fetch('https://www.cbr-xml-daily.ru/daily_json.js', {
+        mode: 'cors',
+        method: 'GET',
     });
 
-    select.addEventListener('change', () => {
+    btnTo.addEventListener('click', e => {
+        e.preventDefault();
         getData()
-            .then((_data) => {
-                const data = JSON.parse(_data);
-                data.cars.forEach(item => {
-                    if (item.brand === select.value) {
-                        const { brand, model, price } = item;
-                        output.innerHTML = `Тачка ${brand} ${model} <br>
-                        Цена: ${price}$`;
-                    }
-                })
+            .then((response) => {
+                if (response.status !== 200) throw new Error('error');
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data);
+                outputTo.value = data["Valute"][selectTo.value].Value * inputTo.value;
             })
             .catch((err) => {
-                output.innerHTML = err;
+                console.error(err);
+            });
+    });
+    btnFrom.addEventListener('click', e => {
+        e.preventDefault();
+        getData()
+            .then((response) => {
+                if (response.status !== 200) throw new Error('error');
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data);
+                outputFrom.value = inputFrom.value / data["Valute"][selectFrom.value].Value;
+            })
+            .catch((err) => {
                 console.error(err);
             });
     });

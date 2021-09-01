@@ -7,21 +7,48 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-
+        .toRub{
+            margin-bottom: 30px;
+            padding: 20px 10px;
+            background-color: rgb(164, 187, 250);
+        }
+        .fromRub{
+            margin-bottom: 30px;
+            padding: 20px 10px;
+            background-color: rgb(164, 250, 210);
+        }
+        input{
+            margin-right: 40px;
+            padding: 10px 8px;
+            width: 300px;
+        }
+        select{
+            margin-right: 10px;
+            padding: 10px 8px;
+        }
     </style>
 </head>
 
 <body>
 
-<select id="cars">
-    <option value="no">Выберите тачку</option>
-    <option value="bmw">bmw</option>
-    <option value="volvo">volvo</option>
-</select>
-
-<div id="output">
-    выбери тачку
-</div>
+    <form class="toRub">
+        <select name="" id="toRUB__select">
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+        </select>
+        <input required type="number" id="toRub1" name="toRub1" placeholder="Количество валюты для перевода">
+        <input type="number" id="toRub2" name="toRub2" disabled placeholder="Итог в рублях">
+        <button type="submit" id="convert_to_RUB">Конвертировать</button>
+    </form>
+    <form class="fromRub">
+        <input required type="number" id="fromRub1" name="fromRub1" placeholder="Количество рублей для перевода">
+        <select name="" id="fromRUB__select">
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+        </select>
+        <input type="number" id="fromRub2" name="fromRub2" disabled placeholder="Итог в выбранной валюте">
+        <button type="submit" id="convert_from_RUB">Конвертировать</button>
+    </form>
 
 
 <script src="script.js"></script>
