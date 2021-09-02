@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return response.json();
             })
             .then((data) => {
-                console.log(data);
                 outputTo.value = data["Valute"][selectTo.value].Value * inputTo.value;
             })
             .catch((err) => {
