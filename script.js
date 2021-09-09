@@ -168,6 +168,7 @@ const getData = async () => {
 
 const createDefault = () => {
     const defaultWrapper = dropdownDefault.querySelector('.dropdown-lists__col');
+    // tmpData.sort((a, b) => a.)
     for (const item of data) {
         const countryBlock = document.createElement('div');
         countryBlock.className = '"dropdown-lists__countryBlock';
@@ -178,7 +179,9 @@ const createDefault = () => {
             </div>
         `);
         let counter = 0;
-        for (const item2 of item["cities"]) {
+        let tmpData = item["cities"];
+        tmpData = tmpData.sort((a, b) => b["count"] - a["count"]);
+        for (const item2 of tmpData) {
             if (counter < 3) {
                 countryBlock.insertAdjacentHTML('beforeend', `
                     <div class="dropdown-lists__line" data-link="${item2["link"]}">
@@ -252,6 +255,7 @@ const init = async () => {
         data = await getData();
     }
     document.body.className = 'loaded';
+    console.log(data);
     createDefault();
     createAutocomplite();
 };
