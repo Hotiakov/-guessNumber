@@ -5,8 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <style>
+      canvas{
+        display: block;
+      }
+    </style>
 </head>
 <body>
+    <canvas id="paint" width="400" height="400"></canvas>
     
+    <input type="color" id="color">
+    <br>
+    <label for="brush">Brush's size</label>
+    <br>
+    <input type="range" id="brush" min="1" max="10" step="1" value="5">
+    <span id="brush-size">5</span>
+    <br><br><br>
+    <canvas id="olymp" width="700" height="400"></canvas>
+    <script src="script.js"></script>
 </body>
 </html>
